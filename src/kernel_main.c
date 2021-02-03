@@ -1,16 +1,26 @@
 #include <stdio.h>
 
-extern unsigned long __bss_start;
-extern unsigned long __bss_end;
+void zero_bss();
+
+extern int __bss_start;
+extern int __bss_end;
 
 int kernel_main(){
-	char *front_bss = & __bss_start;
-	char *back_bss = & __bss_end;
+	zero_bss();
 
-	//iterate through the bss and zero it out. Change sizeof(front_bss to back_bss)?
-	for(int i = 0; i < sizeof(front_bss); i++){
-		front_bss[i] = 0;
+	while (1){
 	}
+}
 
-	return 0;
+void zero_bss(){
+
+	int *begin_bss;
+        begin_bss = &__bss_start;
+	int i = 0;
+
+	//Iterate through the bss until the addresses are the same whilst writing 0 to each address
+	while(&__bss_start + i != &__bss_end){
+		begin_bss[i] = 0;
+		i++;	
+	}			
 }
