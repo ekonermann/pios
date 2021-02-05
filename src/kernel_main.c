@@ -8,6 +8,11 @@ extern int __bss_end;
 int kernel_main(){
 	zero_bss();
 
+	struct list_element c = { NULL, 0};
+	struct list_element b = { &c, 0};
+	struct list_element a = { &b, 0};
+	struct list_element *head = &a;
+
 	while (1){
 	}
 }
