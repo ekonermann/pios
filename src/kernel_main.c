@@ -8,19 +8,24 @@ extern int __bss_end;
 int kernel_main(){
 	zero_bss();
 
-	struct list_element c = { NULL, 0};
-	struct list_element b = { &c, 0};
-	struct list_element a = { &b, 0};
-	struct list_element *head = &a;
+	struct list_element c = { NULL, NULL, 0};
+	struct list_element b = { NULL, NULL, 1};
+	struct list_element a = { NULL, NULL,2};
+	list_add(&a, &b);
+	list_add(&a, &c);
+	
+	list_remove(&a, &b);
 
 	while (1){
 	}
+	
+	return 0;
 }
 
 void zero_bss(){
 
 	int *begin_bss;
-        begin_bss = &__bss_start;
+    begin_bss = &__bss_start;
 	int i = 0;
 
 	//Iterate through the bss until the addresses are the same whilst writing 0 to each address
