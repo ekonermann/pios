@@ -6,8 +6,10 @@ void zero_bss();
 extern int __bss_start;
 extern int __bss_end;
 
-int kernel_main(){
+void kernel_main(){
 	zero_bss();
+
+	char *mu_io_reg = 0x7E215040;
 
 	struct list_element c = { NULL, NULL, 0};
 	struct list_element b = { NULL, NULL, 1};
@@ -18,9 +20,12 @@ int kernel_main(){
 	list_remove(&a, &b);
 
 	while (1){
+		*mu_io_reg = 'h';
+		*mu_io_reg = 'a';
+		*mu_io_reg = 'r';
+		*mu_io_reg = 'i';
+		*mu_io_reg = 's';
 	}
-	
-	return 0;
 }
 
 void zero_bss(){
