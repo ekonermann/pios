@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "list.h"
+#include "led.h"
 
 void zero_bss();
 
@@ -8,23 +9,22 @@ extern int __bss_end;
 
 void kernel_main(){
 	zero_bss();
-
-	char *mu_io_reg = 0x7E215040;
-
-	struct list_element c = { NULL, NULL, 0};
+	led_init();
+	
+/*	struct list_element c = { NULL, NULL, 0};
 	struct list_element b = { NULL, NULL, 1};
 	struct list_element a = { NULL, NULL,2};
 	list_add(&a, &b);
 	list_add(&a, &c);
 	
 	list_remove(&a, &b);
+*/
 
 	while (1){
-		*mu_io_reg = 'h';
-		*mu_io_reg = 'a';
-		*mu_io_reg = 'r';
-		*mu_io_reg = 'i';
-		*mu_io_reg = 's';
+		led_on();
+		delay();
+		led_off();
+		delay();
 	}
 }
 
