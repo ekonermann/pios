@@ -16,6 +16,7 @@ OBJS = \
        list.o \
        serial.o \
        led.o \
+       rprintf.o \
 
 
 
