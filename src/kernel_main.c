@@ -3,16 +3,18 @@
 #include "led.h"
 #include "serial.h"
 #include "rprintf.h"
+#include "page.h"
 
 void zero_bss();
 
 extern int __bss_start;
 extern int __bss_end;
+extern struct ppage *free_list;
 
 void kernel_main(){
 	//zero_bss();
 	//led_init();
-	esp_printf(putc, "Current Execution Level is %d\r\n", kernel_main);
+	//esp_printf(putc, "Current Execution Level is %d\r\n", kernel_main);
 	
 /*	struct list_element c = { NULL, NULL, 0};
 	struct list_element b = { NULL, NULL, 1};
@@ -30,6 +32,20 @@ void kernel_main(){
 		delay();
 	}
 	*/
+
+	init_pfa_list();
+	struct ppage *p = free_list;
+	p = p->next;
+	esp_printf((void*)putc, "Physical addr: %x\n", p->physical_addr);
+	//the (void*) gets rid of the annoyinf incompatible pointer type
+	p = allocate_physical_pages(2);
+	esp_printf((void*)putc, "Allocated physical addr: %x\n", p->physical_addr);
+	p = allocate_physical_pages(2);
+	esp_printf((void*)putc, "allocated physical addr: %x\n", p->physical_addr);
+
+	free_physical_pages(p);
+	esp_printf((void*)putc, "Address after free func: %x\n", p->physical_addr);
+	
 }
 
 void zero_bss(){

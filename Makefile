@@ -17,7 +17,7 @@ OBJS = \
        serial.o \
        led.o \
        rprintf.o \
-
+       page.o \
 
 
 OBJ = $(patsubst %,$(ODIR)/%,$(OBJS))
