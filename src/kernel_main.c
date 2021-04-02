@@ -4,6 +4,9 @@
 #include "serial.h"
 #include "rprintf.h"
 #include "page.h"
+#include "fat.h"
+#include "sd.h"
+#include "gpio.h"
 
 void zero_bss();
 
@@ -33,7 +36,7 @@ void kernel_main(){
 	}
 	*/
 
-	init_pfa_list();
+	/* init_pfa_list();
 	struct ppage *p = free_list;
 	p = p->next;
 	esp_printf((void*)putc, "Physical addr: %x\n", p->physical_addr);
@@ -44,7 +47,13 @@ void kernel_main(){
 	esp_printf((void*)putc, "allocated physical addr: %x\n", p->physical_addr);
 
 	free_physical_pages(p);
-	esp_printf((void*)putc, "Address after free func: %x\n", p->physical_addr);
+	esp_printf((void*)putc, "Address after free func: %x\n", p->physical_addr); */
+	
+	struct file test_fat;
+	sd_init();
+	fatInit();
+	fatOpen(&test_fat, "Testing");
+	fatRead(&test_fat, "TestingFile", 32);
 	
 }
 

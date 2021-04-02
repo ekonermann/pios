@@ -24,32 +24,6 @@ static int num1;
 static int num2;
 static char pad_character;
 
-size_t strlen(const char *str) {
-    unsigned int len = 0;
-    while(str[len] != '\0') {
-        len++;
-    }
-    return len;
-}
-
-int tolower(int c) {
-    if(c < 'a') { // Check if c is uppercase
-        c -= 'a' - 'A';
-    }
-    return c;
-}
-
-int isdig(int c) {
-    if((c >= '0') && (c <= '9')){
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-
-
-
 /*---------------------------------------------------*/
 /*                                                   */
 /* This routine puts pad characters into the output  */
